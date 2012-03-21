@@ -10,6 +10,11 @@ PageStackWindow {
         id: mainPage
     }
 
+    Component.onCompleted: {
+        screen.allowedOrientations = Screen.Portrait
+        theme.inverted = true
+    }
+
     ToolBarLayout {
         id: commonTools
 
@@ -18,14 +23,6 @@ PageStackWindow {
             platformIconId: "toolbar-back"
             onClicked: {
                 pageStack.pop();
-            }
-        }
-
-        ToolButton {
-            anchors.horizontalCenter: parent.horizontalCenter
-            text: theme.inverted ? "Inverted" : "Non-Inverted"
-            onClicked: {
-                theme.inverted = !theme.inverted;
             }
         }
 
@@ -40,8 +37,8 @@ PageStackWindow {
 
     QueryDialog {
         id: aboutDialog
-        titleText: "Application Title"
-        message: "(C) [year] [your name]\n[version]"
+        titleText: "N9 Heart Rate Monitor"
+        message: "(C) 2012 Group of developers with free time\n0.1"
     }
 
     Menu {

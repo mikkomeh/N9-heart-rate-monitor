@@ -3,8 +3,8 @@ Encoding=UTF-8
 Version=1.0
 Type=Application
 Terminal=false
-Name=N9-heart-rate-monitor
-Exec=/usr/bin/invoker --type=d -s /opt/N9-heart-rate-monitor/bin/N9-heart-rate-monitor
+Name=Heart Rate
+Exec=/usr/bin/invoker --type=d -s /opt/N9heartratemonitor/bin/N9heartratemonitor
 Icon=/usr/share/icons/hicolor/80x80/apps/N9-heart-rate-monitor80.png
 X-Window-Icon=
 X-HildonDesk-ShowInToolbar=true

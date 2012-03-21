@@ -5,7 +5,11 @@ Page {
     id: page
     tools: commonTools
 
-    property string title : "Application Title"
+    property string title : "N9 Heart rate monitor"
+
+    Component.onCompleted: {
+        monitor.heartRate.connect(setHeartRate)
+    }
 
     Image {
         id: pageHeader
@@ -35,32 +39,19 @@ Page {
         }
     }
 
-    Flickable {
-        id: pageFlickableContent
-        anchors {
-            top: pageHeader.bottom
-            bottom: page.bottom
-            left: page.left
-            right: page.right
-            margins: 16
-        }
-        contentHeight: pageContent.height
-        contentWidth: pageContent.width
-        flickableDirection: Flickable.VerticalFlick
-
-        Column {
-            id: pageContent
-            width: page.width - pageFlickableContent.anchors.margins * 2
-            spacing: 16
-
-            Button{
-                text: qsTr("Click here!")
-                onClicked: appWindow.showStatusBar = !appWindow.showStatusBar
-            }
-        }
+    Label {
+        id: heartRateLabel
+        anchors.top: pageHeader.bottom
+        anchors.left: page.left
+        anchors.right: page.right
+        anchors.bottom: page.bottom
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+        font.pixelSize: 50
+        text: "---"
     }
 
-    ScrollDecorator {
-        flickableItem: pageFlickableContent
+    function setHeartRate(rate) {
+        heartRateLabel.text = rate
     }
 }
