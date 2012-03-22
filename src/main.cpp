@@ -13,8 +13,10 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QDeclarativeContext *ctxt = viewer.rootContext();
     ctxt->setContextProperty("monitor", &monitor);
 
-    viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
-    viewer.setMainQmlFile(QLatin1String("qml/N9heartratemonitor/main.qml"));
+    viewer.setOrientation(QmlApplicationViewer::ScreenOrientationLockPortrait);
+    viewer.setSource(QUrl("qrc:/qml/main.qml"));
+//    viewer.setMainQmlFile(QLatin1String("qml/N9heartratemonitor/main.qml"));
+//    view->setSource(QUrl("qrc:/qml/main.qml"));
     viewer.showExpanded();
 
     return app->exec();

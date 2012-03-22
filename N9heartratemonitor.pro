@@ -1,7 +1,7 @@
 # Add more folders to ship with the application, here
-folder_01.source = qml/N9heartratemonitor
+folder_01.source = qml
 folder_01.target = qml
-DEPLOYMENTFOLDERS = folder_01
+#DEPLOYMENTFOLDERS = folder_01
 
 # Additional import path used to resolve QML modules in Creator's code model
 QML_IMPORT_PATH =
@@ -30,8 +30,8 @@ CONFIG += qdeclarative-boostable
 # CONFIG += qt-components
 
 # The .cpp file which was generated for your project. Feel free to hack it.
-SOURCES += main.cpp \
-    heartratemonitor.cpp
+SOURCES += src/main.cpp \
+    src/heartratemonitor.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -47,4 +47,7 @@ OTHER_FILES += \
     qtc_packaging/debian_harmattan/changelog
 
 HEADERS += \
-    heartratemonitor.h
+    src/heartratemonitor.h
+
+RESOURCES += \
+    resources.qrc
