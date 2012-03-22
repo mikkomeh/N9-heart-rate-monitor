@@ -5,10 +5,9 @@ Page {
     id: page
     tools: commonTools
 
-    property string title : "N9 Heart rate monitor"
-
     Component.onCompleted: {
         monitor.heartRate.connect(setHeartRate)
+        monitor.heartBeat.connect(runBeatAnimation)
     }
 
     Image {
@@ -35,13 +34,30 @@ Page {
                 fontFamily: "Nokia Pure Text Light"
                 fontPixelSize: 32
             }
-            text: page.title
+            text: "Heart Rate Monitor"
+        }
+    }
+
+    Image {
+        id: heartBeatImage
+        anchors.top: pageHeader.bottom
+        anchors.left: page.left
+        anchors.right: page.right
+        fillMode: Image.PreserveAspectFit
+        source: "pictures/heart.png"
+        opacity: 0.1
+
+        SequentialAnimation on opacity {
+            id: beatAnimation
+            loops: 1
+            PropertyAnimation { to: 1.0; duration: 150; easing.type: "OutQuad" }
+            PropertyAnimation { to: 0.1; duration: 150; easing.type: "InQuad" }
         }
     }
 
     Label {
         id: heartRateLabel
-        anchors.top: pageHeader.bottom
+        anchors.top: heartBeatImage.bottom
         anchors.left: page.left
         anchors.right: page.right
         anchors.bottom: page.bottom
@@ -53,5 +69,8 @@ Page {
 
     function setHeartRate(rate) {
         heartRateLabel.text = rate
+    }
+    function runBeatAnimation() {
+        beatAnimation.start()
     }
 }

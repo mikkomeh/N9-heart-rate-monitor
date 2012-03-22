@@ -2,6 +2,6 @@
     <qresource prefix="/">
         <file>qml/main.qml</file>
         <file>qml/MainPage.qml</file>
-        <file>heart.png</file>
+        <file>qml/pictures/heart.png</file>
     </qresource>
 </RCC>
