@@ -45,13 +45,13 @@ Page {
         anchors.right: page.right
         fillMode: Image.PreserveAspectFit
         source: "pictures/heart.png"
-        opacity: 0.1
+        opacity: 0.2
 
         SequentialAnimation on opacity {
             id: beatAnimation
             loops: 1
             PropertyAnimation { to: 1.0; duration: 150; easing.type: "OutQuad" }
-            PropertyAnimation { to: 0.1; duration: 150; easing.type: "InQuad" }
+            PropertyAnimation { to: 0.2; duration: 150; easing.type: "InQuad" }
         }
     }
 
