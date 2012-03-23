@@ -1,4 +1,5 @@
 #include "heartratemonitor.h"
+#include "chartprovider.h"
 
 #include <QtDeclarative>
 #include <QApplication>
@@ -14,9 +15,9 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     ctxt->setContextProperty("monitor", &monitor);
 
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationLockPortrait);
+    viewer.engine()->addImageProvider(QLatin1String("chart"),
+                                      new ChartProvider(QDeclarativeImageProvider::Image));
     viewer.setSource(QUrl("qrc:/qml/main.qml"));
-//    viewer.setMainQmlFile(QLatin1String("qml/N9heartratemonitor/main.qml"));
-//    view->setSource(QUrl("qrc:/qml/main.qml"));
     viewer.showExpanded();
 
     return app->exec();

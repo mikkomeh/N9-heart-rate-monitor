@@ -31,7 +31,8 @@ CONFIG += qdeclarative-boostable
 
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += src/main.cpp \
-    src/heartratemonitor.cpp
+    src/heartratemonitor.cpp \
+    src/chartprovider.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -48,7 +49,8 @@ OTHER_FILES += \
     qtc_packaging/debian_harmattan/changelog
 
 HEADERS += \
-    src/heartratemonitor.h
+    src/heartratemonitor.h \
+    src/chartprovider.h
 
 RESOURCES += \
     resources.qrc

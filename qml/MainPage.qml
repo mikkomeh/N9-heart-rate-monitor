@@ -45,27 +45,35 @@ Page {
         anchors.right: page.right
         fillMode: Image.PreserveAspectFit
         source: "pictures/heart.png"
-        opacity: 0.2
+        opacity: 0.3
 
         SequentialAnimation on opacity {
             id: beatAnimation
             loops: 1
             PropertyAnimation { to: 1.0; duration: 150; easing.type: "OutQuad" }
-            PropertyAnimation { to: 0.2; duration: 150; easing.type: "InQuad" }
+            PropertyAnimation { to: 0.3; duration: 150; easing.type: "InQuad" }
         }
     }
 
-    Label {
-        id: heartRateLabel
+    Image {
         anchors.top: heartBeatImage.bottom
         anchors.left: page.left
         anchors.right: page.right
         anchors.bottom: page.bottom
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-        font.pixelSize: 50
-        text: "---"
+        source: "image://chart/image.png"
     }
+
+//    Label {
+//        id: heartRateLabel
+//        anchors.top: heartBeatImage.bottom
+//        anchors.left: page.left
+//        anchors.right: page.right
+//        anchors.bottom: page.bottom
+//        horizontalAlignment: Text.AlignHCenter
+//        verticalAlignment: Text.AlignVCenter
+//        font.pixelSize: 50
+//        text: "---"
+//    }
 
     function setHeartRate(rate) {
         heartRateLabel.text = rate
