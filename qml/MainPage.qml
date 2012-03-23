@@ -55,25 +55,25 @@ Page {
         }
     }
 
-    Image {
+//    Image {
+//        anchors.top: heartBeatImage.bottom
+//        anchors.left: page.left
+//        sourceSize.width: page.width
+//        sourceSize.height: 300
+//        source: "image://chart/image.png"
+//    }
+
+    Label {
+        id: heartRateLabel
         anchors.top: heartBeatImage.bottom
         anchors.left: page.left
         anchors.right: page.right
         anchors.bottom: page.bottom
-        source: "image://chart/image.png"
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+        font.pixelSize: 50
+        text: "---"
     }
-
-//    Label {
-//        id: heartRateLabel
-//        anchors.top: heartBeatImage.bottom
-//        anchors.left: page.left
-//        anchors.right: page.right
-//        anchors.bottom: page.bottom
-//        horizontalAlignment: Text.AlignHCenter
-//        verticalAlignment: Text.AlignVCenter
-//        font.pixelSize: 50
-//        text: "---"
-//    }
 
     function setHeartRate(rate) {
         heartRateLabel.text = rate

@@ -14,7 +14,7 @@ public:
 private:
     Q_DISABLE_COPY(ChartProvider)
 
-    QImage createChart();
+    QImage createChart(int width, int height);
     void drawData(QPainter &painter, QImage &image);
     void drawAxels(QPainter &painter, QImage &image);
 };

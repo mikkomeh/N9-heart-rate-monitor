@@ -18,28 +18,33 @@ ChartProvider::~ChartProvider()
 
 QImage ChartProvider::requestImage(const QString &id, QSize *size, const QSize &requestedSize)
 {
+    Q_UNUSED(id)
     qDebug() << __PRETTY_FUNCTION__ << requestedSize;
-    QImage image = createChart();
-    *size = image.size();
+    const int defaultWidth = 400;
+    const int defaultHeight = 200;
+    const int width = requestedSize.width() > 0 ? requestedSize.width() : defaultWidth;
+    const int height = requestedSize.height() > 0 ? requestedSize.height() : defaultHeight;
+    QImage image = createChart(width, height);
+    if (size) {
+        *size = image.size();
+    }
     return image;
 }
 
 QPixmap ChartProvider::requestPixmap(const QString &id, QSize *size, const QSize &requestedSize)
 {
+    Q_UNUSED(id)
     qDebug() << __PRETTY_FUNCTION__;
     QPixmap pixmap(requestedSize);
     *size = requestedSize;
     return pixmap;
 }
 
-QImage ChartProvider::createChart()
+QImage ChartProvider::createChart(int width, int height)
 {
-    QImage image(300, 200, QImage::Format_ARGB32);
+    QImage image(width, height, QImage::Format_ARGB32);
     QPainter painter;
-//    QColor color(255, 0, 0);
-//    QBrush brush(color);
     painter.begin(&image);
-//    painter.setBrush(brush);
     drawAxels(painter, image);
     drawData(painter, image);
     painter.end();
