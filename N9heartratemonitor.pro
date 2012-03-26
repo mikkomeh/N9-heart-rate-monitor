@@ -8,6 +8,8 @@ QML_IMPORT_PATH =
 
 symbian:TARGET.UID3 = 0xE414CFC7
 
+DEFINES += SIMULATE_HEART
+
 # Smart Installer package's UID
 # This UID is from the protected range and therefore the package will
 # fail to install if self-signed. By default qmake uses the unprotected

@@ -82,7 +82,7 @@ symbian {
     } else:!isEmpty(MEEGO_VERSION_MAJOR) {
         desktopfile.files = $${TARGET}_harmattan.desktop
         desktopfile.path = /usr/share/applications
-        icon.files = $${TARGET}80.png
+        icon.files = $${TARGET}.png
         icon.path = /usr/share/icons/hicolor/80x80/apps
     } else { # Assumed to be a Desktop Unix
         copyCommand =
@@ -146,3 +146,6 @@ export (TARGET.CAPABILITY)
 export (LIBS)
 export (QMAKE_EXTRA_TARGETS)
 }
+
+OTHER_FILES += \
+    heartratemonitor.png

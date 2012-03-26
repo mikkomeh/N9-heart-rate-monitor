@@ -9,6 +9,7 @@ Page {
         monitor.heartRate.connect(setHeartRate)
         monitor.heartBeat.connect(runBeatAnimation)
     }
+    property int imageIndex: 0
 
     Image {
         id: pageHeader
@@ -43,6 +44,8 @@ Page {
         anchors.top: pageHeader.bottom
         anchors.left: page.left
         anchors.right: page.right
+        anchors.topMargin: 20
+        height: 200
         fillMode: Image.PreserveAspectFit
         source: "pictures/heart.png"
         opacity: 0.3
@@ -50,33 +53,36 @@ Page {
         SequentialAnimation on opacity {
             id: beatAnimation
             loops: 1
-            PropertyAnimation { to: 1.0; duration: 150; easing.type: "OutQuad" }
-            PropertyAnimation { to: 0.3; duration: 150; easing.type: "InQuad" }
+            PropertyAnimation { to: 1.0; duration: 125; easing.type: "OutQuad" }
+            PropertyAnimation { to: 0.3; duration: 125; easing.type: "InQuad" }
         }
     }
-
-//    Image {
-//        anchors.top: heartBeatImage.bottom
-//        anchors.left: page.left
-//        sourceSize.width: page.width
-//        sourceSize.height: 300
-//        source: "image://chart/image.png"
-//    }
 
     Label {
         id: heartRateLabel
         anchors.top: heartBeatImage.bottom
         anchors.left: page.left
         anchors.right: page.right
-        anchors.bottom: page.bottom
+        anchors.topMargin: 20
         horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
         font.pixelSize: 50
         text: "---"
     }
 
+    Image {
+        id: historyImage
+        anchors.bottom: page.bottom
+        anchors.left: page.left
+        sourceSize.width: page.width
+        sourceSize.height: 340
+        source: "image://chart/image.png"
+    }
+
     function setHeartRate(rate) {
         heartRateLabel.text = rate
+        // Trick to force image reload
+        historyImage.source = "image://chart/image" + page.imageIndex + ".png"
+        page.imageIndex++
     }
     function runBeatAnimation() {
         beatAnimation.start()

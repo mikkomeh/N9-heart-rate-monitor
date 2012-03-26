@@ -19,7 +19,6 @@ PageStackWindow {
         id: commonTools
 
         ToolIcon {
-            visible: pageStack.depth > 1
             platformIconId: "toolbar-back"
             onClicked: {
                 pageStack.pop();
@@ -37,8 +36,8 @@ PageStackWindow {
 
     QueryDialog {
         id: aboutDialog
-        titleText: "N9 Heart Rate Monitor"
-        message: "(C) 2012 Group of developers with free time\n0.1"
+        titleText: "Heart Rate Monitor"
+        message: "(C) 2012 Group of developers with too much free time\nv.0.1"
     }
 
     Menu {
@@ -47,9 +46,7 @@ PageStackWindow {
         MenuLayout {
             MenuItem {
                 text: qsTr("About")
-                onClicked: {
-                    aboutDialog.open();
-                }
+                onClicked: aboutDialog.open();
             }
         }
         onStatusChanged: {
