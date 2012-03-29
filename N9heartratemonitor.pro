@@ -34,7 +34,9 @@ CONFIG += qdeclarative-boostable
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += src/main.cpp \
     src/heartratemonitor.cpp \
-    src/chartprovider.cpp
+    src/chartprovider.cpp \
+    src/historymodel.cpp \
+    src/heartratemeasurement.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -48,11 +50,16 @@ OTHER_FILES += \
     qtc_packaging/debian_harmattan/copyright \
     qtc_packaging/debian_harmattan/control \
     qtc_packaging/debian_harmattan/compat \
-    qtc_packaging/debian_harmattan/changelog
+    qtc_packaging/debian_harmattan/changelog \
+    qml/HistoryPage.qml \
+    qml/HistoryDelegate.qml \
+    qml/uiconstants.js
 
 HEADERS += \
     src/heartratemonitor.h \
-    src/chartprovider.h
+    src/chartprovider.h \
+    src/historymodel.h \
+    src/heartratemeasurement.h
 
 RESOURCES += \
     resources.qrc

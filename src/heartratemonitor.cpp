@@ -9,14 +9,17 @@ HeartRateMonitor::HeartRateMonitor(QObject *parent) :
     m_historyCount(0),
     m_firstIndex(0),
     m_curIndex(-1),
-    timerInterval(-1)
+    m_heartRate(0)
+#ifdef SIMULATE_HEART
+   ,timerInterval(-1)
+#endif
 {
 #ifdef SIMULATE_HEART
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), SLOT(emitHeartBeat()));
 
     QTimer *timer2 = new QTimer(this);
-    timer2->setInterval(4000);
+    timer2->setInterval(2000);
     connect(timer2, SIGNAL(timeout()), SLOT(changeRate()));
     timer2->start();
 #endif
@@ -37,10 +40,10 @@ int HeartRateMonitor::getHistory(int data[])
 #ifdef SIMULATE_HEART
 void HeartRateMonitor::changeRate()
 {
-    const int rate = random() % 150 + 50;
-    emit heartRate(rate);
-    timerInterval = 60.0 / (double)rate * 1000.0;
-    addToHistory(rate);
+    m_heartRate = random() % 150 + 50;
+    emit heartRate(m_heartRate);
+    timerInterval = 60.0 / (double)m_heartRate * 1000.0;
+    addToHistory(m_heartRate);
     if (!timer->isActive()) {
         timer->start();
     }

@@ -3,5 +3,8 @@
         <file>qml/main.qml</file>
         <file>qml/MainPage.qml</file>
         <file>qml/pictures/heart.png</file>
+        <file>qml/HistoryPage.qml</file>
+        <file>qml/HistoryDelegate.qml</file>
+        <file>qml/uiconstants.js</file>
     </qresource>
 </RCC>

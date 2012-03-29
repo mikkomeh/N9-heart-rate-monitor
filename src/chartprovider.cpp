@@ -6,7 +6,6 @@
 #include <QBrush>
 #include <QColor>
 
-#include <QTime>
 #include <QDebug>
 
 ChartProvider::ChartProvider(ImageType type, HeartRateMonitor &monitor) :
@@ -21,8 +20,6 @@ ChartProvider::~ChartProvider()
 QImage ChartProvider::requestImage(const QString &id, QSize *size, const QSize &requestedSize)
 {
     Q_UNUSED(id)
-    QTime time;
-    time.start();
     const int defaultWidth = 400;
     const int defaultHeight = 200;
     const int width = requestedSize.width() > 0 ? requestedSize.width() : defaultWidth;
@@ -39,7 +36,9 @@ QPixmap ChartProvider::requestPixmap(const QString &id, QSize *size, const QSize
     Q_UNUSED(id)
     qDebug() << __PRETTY_FUNCTION__;
     QPixmap pixmap(requestedSize);
-    *size = requestedSize;
+    if (size) {
+        *size = pixmap.size();
+    }
     return pixmap;
 }
 
@@ -100,7 +99,7 @@ void ChartProvider::drawData(QPainter &painter, QImage &image)
     }
 
     const int step = (width - left) / HeartRateMonitor::HistoryMaxCount;
-    double s = height / 240.0;
+    const double s = height / 240.0;
 
     QColor color(255, 0, 0);
     QPen pen(color);

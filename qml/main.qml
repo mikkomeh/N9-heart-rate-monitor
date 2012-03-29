@@ -3,11 +3,13 @@ import com.nokia.meego 1.0
 
 PageStackWindow {
     id: appWindow
-
     initialPage: mainPage
 
     MainPage {
         id: mainPage
+    }
+    HistoryPage {
+        id: historyPage
     }
 
     Component.onCompleted: {
@@ -20,17 +22,13 @@ PageStackWindow {
 
         ToolIcon {
             platformIconId: "toolbar-back"
-            onClicked: {
-                pageStack.pop();
-            }
+            onClicked: pageStack.pop();
+            visible: pageStack.depth > 1
         }
-
         ToolIcon {
             platformIconId: "toolbar-view-menu"
-            onClicked: {
-                appWindow.showToolBar = false;
-                myMenu.open();
-            }
+            visible: pageStack.depth == 1
+            onClicked: mainMenu.open();
         }
     }
 
@@ -41,17 +39,20 @@ PageStackWindow {
     }
 
     Menu {
-        id: myMenu
+        id: mainMenu
         visualParent: pageStack
         MenuLayout {
             MenuItem {
-                text: qsTr("About")
-                onClicked: aboutDialog.open();
+                text: qsTr("Store")
+                onClicked: mainPage.saveMeasurement()
             }
-        }
-        onStatusChanged: {
-            if (status === DialogStatus.Closed) {
-                appWindow.showToolBar = true;
+            MenuItem {
+                text: qsTr("History")
+                onClicked: pageStack.push(historyPage)
+            }
+            MenuItem {
+                text: qsTr("About")
+                onClicked: aboutDialog.open()
             }
         }
     }

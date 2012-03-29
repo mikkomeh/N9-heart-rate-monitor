@@ -1,15 +1,21 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
+import HeartRateLibrary 1.0
 
 Page {
+    property int imageIndex: 0
+
     id: page
     tools: commonTools
 
-    Component.onCompleted: {
-        monitor.heartRate.connect(setHeartRate)
-        monitor.heartBeat.connect(runBeatAnimation)
+    Connections {
+        target: monitor
+        onHeartBeat: runBeatAnimation()
+        onHeartRate: setHeartRate(rate)
     }
-    property int imageIndex: 0
+    HeartRateMeasurement {
+        id: lastMeasurement
+    }
 
     Image {
         id: pageHeader
@@ -76,9 +82,12 @@ Page {
         sourceSize.width: page.width
         sourceSize.height: 340
         source: "image://chart/image.png"
+        cache: false
     }
 
     function setHeartRate(rate) {
+        lastMeasurement.time = new Date()
+        lastMeasurement.value = rate
         heartRateLabel.text = rate
         // Trick to force image reload
         historyImage.source = "image://chart/image" + page.imageIndex + ".png"
@@ -86,5 +95,8 @@ Page {
     }
     function runBeatAnimation() {
         beatAnimation.start()
+    }
+    function saveMeasurement() {
+        history.append(lastMeasurement.time, lastMeasurement.value)
     }
 }
