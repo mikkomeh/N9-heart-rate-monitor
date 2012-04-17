@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <QTimer>
 #include <QDebug>
+#include <QDateTime>
 
 HeartRateMonitor::HeartRateMonitor(QObject *parent) :
     QObject(parent),
@@ -29,12 +30,70 @@ HeartRateMonitor::~HeartRateMonitor()
 {
 }
 
+void HeartRateMonitor::construct()
+{
+    avgRedValueBufferIndex = 0;
+    avgRedValueBufferCount = 0;
+    lastHeartBeatTimestamp = 0;
+    isUnderAvgRedValue = false;
+
+    // Setup camera
+}
+
+
 int HeartRateMonitor::getHistory(int data[])
 {
     for (int i = 0; i < m_historyCount; i++) {
         data[i] = m_history[(m_firstIndex + i) % HistoryMaxCount];
     }
     return m_historyCount;
+}
+
+void HeartRateMonitor::run()
+{
+    ushort redValue; // TODO //
+    uint avgRedValue = 0;
+
+    avgRedValueBufferIndex = avgRedValueBufferIndex &
+        RED_VALUE_RING_BUFFER_SIZE;
+
+    // Sliding average value
+
+    for (uint i = 0; i < avgRedValueBufferCount; i++)
+    {
+        avgRedValue += avgRedValueBuffer[i];
+    }
+    if (avgRedValueBufferCount > RED_VALUE_RING_BUFFER_SIZE)
+        avgRedValueBufferCount = RED_VALUE_RING_BUFFER_SIZE; 
+    else if (avgRedValueBufferCount == 0)
+        avgRedValueBufferCount = 1; 
+
+    avgRedValue = avgRedValue / avgRedValueBufferCount;
+
+    if (redValue > avgRedValue && isUnderAvgRedValue)
+    {
+        // Heart beat
+
+        quint64 currentTimestamp = QDateTime::currentMSecsSinceEpoch();
+        quint64 timeDiff = currentTimestamp - lastHeartBeatTimestamp;
+
+        emit heartBeat();
+
+        // Limit sending of heart rate signals (> 800 ms)
+        if (timeDiff > 800 && lastHeartBeatTimestamp)
+        {
+            uint rate = (60*1000 / timeDiff);
+            if (rate >= 35 && rate <= 200) // Limit heart rate [35, 200]
+                emit heartRate(rate);
+        }
+        lastHeartBeatTimestamp = currentTimestamp;
+    }
+    else if (redValue < avgRedValue)
+        isUnderAvgRedValue = true;
+
+    avgRedValueBuffer[avgRedValueBufferIndex] = redValue;
+    avgRedValueBufferIndex++;
+    avgRedValueBufferCount++;
 }
 
 #ifdef SIMULATE_HEART
