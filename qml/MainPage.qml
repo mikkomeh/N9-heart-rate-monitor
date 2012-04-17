@@ -10,7 +10,7 @@ Page {
 
     Connections {
         target: monitor
-        onHeartBeat: runBeatAnimation()
+        onHeartBeat: beatAnimation.start()
         onHeartRate: setHeartRate(rate)
     }
     HeartRateMeasurement {
@@ -92,9 +92,6 @@ Page {
         // Trick to force image reload
         historyImage.source = "image://chart/image" + page.imageIndex + ".png"
         page.imageIndex++
-    }
-    function runBeatAnimation() {
-        beatAnimation.start()
     }
     function saveMeasurement() {
         history.append(lastMeasurement.time, lastMeasurement.value)
